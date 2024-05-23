@@ -2,9 +2,19 @@
 
 Prediction of self-diffusion of polar/non-polar, spherical/non-spherical, and hydrogen-bonding molecules in liquids, compressed gases or supercritical fluids.
 
-The AARD achieved by the model in the test set was 9.06 %.
 
-The machine learning models were trained with a database of 5551 experimental data points from over 216 systems. For more information check the following papers:
+The machine learning models were trained with a database of 5551 experimental data points from over 216 systems.
+
+## Available models
+
+The AARD achieved by the models ML5-D11 and ML8-D11 in the test set were 9.06 % and 7.14 %, respectively.
+
+| Model            | Input parameters required                                                                    |
+|------------------|----------------------------------------------------------------------------------------------|
+| `ML5-D11`     | temperature, critical volume, critical temperature, density and acentric factor                                                   |
+| `ML8-D11`   | temperature, critical volume, critical temperature, density, acentric factor, pressure  and substance identifier (SMILES)                                                   |
+                                  
+
 
 ## Installation
 
@@ -22,6 +32,7 @@ The machine learning models were trained with a database of 5551 experimental da
 
 ## Usage
 
+To use the `ML5-D11` model:
 Call the program and provide the properties:
 
 1. Temperature (K)
@@ -30,16 +41,38 @@ Call the program and provide the properties:
 4. Density (g/cm3)
 5. Acentric factor
 
+To use the `ML8-D11` model:
+Call the program and provide the properties:
 
+1. Temperature (K)
+2. Critical volume (cm3/mol)
+3. Critical temperature (K)
+4. Density (g/cm3)
+5. Acentric factor
+6. Pressure (bar)
+7. Substance identifier (SMILES)
 
-To use the `ML-D11` model:
+To use the `ML5-D11` model:
 ```python
-from ml_D11 import ML_D11
+from ml_D11 import ML5_D11
 
-model=ML_D11()
+model=ML5_D11()
 
 model.predict(temp=[112.25], crit_vol=[99.2], crit_temp=[190.4], dens=[0.4222], acent_fact=[0.011])
 # Output: array([4.7065659e-05])
+```
+
+To use the `ML-D11` model:
+
+
+```python
+from ml_D11 import ML8_D11
+
+model=ML8_D11()
+
+model.predict(temp=[112.25], crit_vol=[99.2], crit_temp=[190.4], dens=[0.4222], acent_fact=[0.011], press=[8.61], smiles=['C'])
+
+# Output: array([4.71234228e-05])
 ```
 
 The outputed D11 values are in cm2/s.
